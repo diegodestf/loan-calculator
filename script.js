@@ -1,14 +1,21 @@
 const loanForm = document.querySelector('#loan-form')
+const results = document.querySelector('#results')
+const loading = document.querySelector('#loading')
+
+loanForm.addEventListener('submit', (e) => {
+
+    results.style.display = 'none'
+
+    loading.style.display = 'block'
+
+    setTimeout(calculateLoan, 2000);
+
+    e.preventDefault()
+
+})
 
 
-
-
-
-
-loanForm.addEventListener('submit', calculateLoan)
-
-
-function calculateLoan(e) {
+function calculateLoan() {
     
     const amount = document.querySelector('#amount')
     const interest = document.querySelector('#interest')
@@ -31,11 +38,19 @@ function calculateLoan(e) {
         totalPayment.value = (monthly * calculatedPayments).toFixed(2)
 
         totalInterest.value = ((monthly * calculatedPayments) - principal).toFixed(2)
+
+        results.style.display = 'block'
+
+        loading.style.display = 'none'
+
     } else {
+
+        
         showError('Please check your numbers')
+
+        loading.style.display = 'none'
     }
 
-    e.preventDefault()
 }
 
 function showError(error) {
